@@ -1,7 +1,10 @@
-package com.jaz.inventory.Data;
-
+package com.jaz.inventory.Model;
 
 public class Item {
+
+    public Item() {
+    }
+
     public Item(int id, String name, int quantity, float price, String description) {
         this.id = id;
         this.name = name;
@@ -9,6 +12,14 @@ public class Item {
         this.price = price;
         this.description = description;
     }
+
+    private int id;
+    private String name;
+    private int quantity;
+    private float price;
+    private String description;
+
+
 
 
     public int getId() {
@@ -51,9 +62,4 @@ public class Item {
         this.description = description;
     }
 
-    private int id;
-    private String name;
-    private int quantity;
-    private float price;
-    private String description;
 }

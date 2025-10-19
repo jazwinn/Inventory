@@ -3,33 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>Inventory</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script th:src="@{/js/inventory.js}"></script>
 </head>
 <body>
-<div class="top-body">
-    <h1>Inventory</h1>
+<div class="container">
+    <div class="start">
+
+    </div>
+    <div class="Center">
+
+    </div>
+    <div class="end">
+        <div class="add-button">
+            <button onclick="OpenPopup('add')">Add Item</button>
+        </div>
+    </div>
+
 </div>
-<div class="inventory-table-div">
-    <table class="inventory-table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price ($)</th>
-            <th>Description</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${inventoryList}">
-            <td th:text="${item.id}"></td>
-            <td th:text="${item.name}"></td>
-            <td th:text="${item.quantity}"></td>
-            <td th:text="${item.price}"></td>
-            <td th:text="${item.description}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div>
+    <div class="top-body-div">
+        <h1>Inventory</h1>
+    </div>
+    <div class="inventory-table-div">
+        <table class="inventory-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price ($)</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${inventoryList}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.price}"></td>
+                <td th:text="${item.description}"></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="edit-btn" onclick="OpenPopup('edit', this)">Edit</button>
+                        <button class="delete-btn" onclick="OpenDeletePopup(this)">Delete</button>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
 </div>
+
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <div class="popup-top">
+            <h2 id="popup-header">Add Item</h2>
+
+        </div>
+        <div class="popup-middle">
+            <div class="field">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="field">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" step="1" min="0">
+            </div>
+            <div class="field">
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" step="0.1" min="0">
+            </div>
+            <div class="field">
+                <label for="description">Desc:</label>
+                <input type="text" id="description" name="description">
+            </div>
+        </div>
+        <div class="popup-botton">
+            <button id="addButton" onclick="AddItem()">Add</button>
+            <button id="saveButton" onclick="UpdateItem()">Save</button>
+            <button onclick="ClosePopup()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div id="popup-delete-confirmation" class="popup-delete-confirmation">
+    <div class="popup-delete-confirmation-content">
+        <h1>Are you sure?</h1>
+        <div class="popup-bottom">
+            <button onclick="DeleteItem()">Yes</button>
+            <button onclick="CloseDeletePopup()">No</button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

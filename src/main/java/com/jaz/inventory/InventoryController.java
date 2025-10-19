@@ -1,27 +1,61 @@
 package com.jaz.inventory;
 
-import com.jaz.inventory.Data.Item;
+import com.jaz.inventory.Model.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
+@RequestMapping("/inventory")
 public class InventoryController {
 
-    @RequestMapping("/inventory")
-    public String index(Model model) {
+    private final ItemDao itemDao;
 
-        List<Item> items = Arrays.asList(
-                new Item(0, "Laptop", 10, 999.99F, "Laptop Disc"),
-                new Item(1, "Mouse", 25, 19.99F, "Mouse Disc"),
-                new Item(2, "Keyboard", 15, 49.99F, "Keyboard Disc")
-        );
+    public InventoryController(ItemDao itemDao) {
+        this.itemDao = itemDao;
+    }
 
-        model.addAttribute("inventoryList", items);
+    @GetMapping
+    public String DisplayInventory(Model model) {
+
+        model.addAttribute("inventoryList", itemDao.getAllItems());
 
         return "inventory"; // Thymeleaf will look for templates/inventory.html
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Item> getItemById(@PathVariable int id) {
+        Item item = itemDao.getItemById(id);
+        if (item == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(item);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> AddItem(@RequestBody Item item) {// request body to convert from json to object
+        itemDao.AddItem(item);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> UpdateItem(@RequestBody Item item , @PathVariable("id") int id) {
+        item.setId(id);
+        itemDao.updateItem(item);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> DeleteItem(@PathVariable("id") int id) {
+        if (itemDao.ItemExist(id)){//check if id exist
+           itemDao.RemoveItem(id);
+           return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+
 }
