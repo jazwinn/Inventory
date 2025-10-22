@@ -3,6 +3,9 @@
 A full-stack **Inventory Management System** built with **Spring Boot**, **MySQL**, and a responsive **HTML/CSS/JavaScript** frontend.  
 This project provides a clean and efficient interface to manage products, suppliers, and stock levels — ideal for small businesses or warehouse tracking.
 
+## Demo
+![Recording 2025-10-22 223012](https://github.com/user-attachments/assets/cf19ab03-7a2b-4911-b9c4-a8484edf182d)
+
 ---
 
 ## Features
