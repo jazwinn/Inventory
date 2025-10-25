@@ -27,7 +27,7 @@ This project provides a clean and efficient interface to manage products, suppli
 | **REST API** | Spring MVC + JPA |
 | **Styling** | Vanilla CSS |
 
-##Usage
+## Usage
 ```bash
 # Clone repo
 git clone https://github.com/<your-username>/inventory-web-manager.git
